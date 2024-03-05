@@ -60,6 +60,9 @@ class CalculationsController < ApplicationController
     end
   end
 
+  def welcome_page
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_calculation
