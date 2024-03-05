@@ -1,6 +1,7 @@
 require './calculations/cargo_calculator'
 
 class CalculationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_calculation, only: %i[ show edit update destroy set_price]
 
   # GET /calculations or /calculations.json

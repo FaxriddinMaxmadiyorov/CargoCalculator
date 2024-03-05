@@ -65,7 +65,8 @@
     <%= form.label :dest_point, style: "display: block" %>
     <%= form.text_field :dest_point %>
   </div>
-  <%= form.hidden_field :user_id, user_id: current_user.id %>
+  <%= current_user.id %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div>
     <%= form.submit %>
