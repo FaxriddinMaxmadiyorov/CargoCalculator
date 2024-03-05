@@ -74,4 +74,16 @@ group :test do
 end
 
 gem 'figaro'
-gem 'activeadmin'
+
+# New version released next week
+# @see https://github.com/activeadmin/activeadmin/issues/7196
+gem 'activeadmin', github: 'activeadmin/activeadmin', branch: 'master' # FIXME: revert to stable
+
+# Required for ActiveAdmin
+gem 'sass-rails'
+
+# Plus integrations with:
+gem 'devise'
+gem 'cancancan'
+gem 'draper'
+gem 'pundit'
