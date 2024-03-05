@@ -1,3 +1,5 @@
+require './calculations/cargo_calculator'
+
 class CalculationsController < ApplicationController
   before_action :set_calculation, only: %i[ show edit update destroy ]
 
@@ -22,6 +24,18 @@ class CalculationsController < ApplicationController
   # POST /calculations or /calculations.json
   def create
     @calculation = Calculation.new(calculation_params)
+
+    # CargoCalculator object
+    cargo_calculator = Calculations::CargoCalculator.new
+    cargo_calculator.weight = @calculation.weight
+
+    cargo_calculator.length = @calculation.length
+    cargo_calculator.width = @calculation.width
+    cargo_calculator.height = @calculation.height
+    cargo_calculator.calculate_distance
+    cargo_calculator.calculate_price
+
+    @calculation.price = cargo_calculator.price
 
     respond_to do |format|
       if @calculation.save

@@ -1,6 +1,7 @@
+module Calculations
 class CargoCalculator
 
-  attr_accessor :dep_point
+  attr_accessor :weight, :length, :width, :height, :dep_point, :dest_point, :distance, :price
 
   def initialize
     @weight = 0
@@ -42,14 +43,14 @@ class CargoCalculator
   def calculate_price
     volume = @length * @width * @height / 1000000.0 # converting volume to m^3
     if volume < 1
-      @price_per_km = 1
+      price_per_km = 1
     elsif volume >= 1 && @weight <= 10
-      @price_per_km = 2
+      price_per_km = 2
     else
-      @price_per_km = 3
+      price_per_km = 3
     end
 
-    @price = @distance * @price_per_km
+    @price = @distance * price_per_km
   end
 
   def process
@@ -60,6 +61,7 @@ class CargoCalculator
 
     { weight: @weight, length: @length, width: @width, height: @height, distance: @distance, price: @price }
   end
+end
 end
 
 # order = CargoCalculator.new
