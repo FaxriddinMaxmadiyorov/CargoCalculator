@@ -71,6 +71,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 
+  gem 'shoulda'
+  gem 'shoulda-matchers', '~> 5.0'
 end
 
 gem 'figaro'
