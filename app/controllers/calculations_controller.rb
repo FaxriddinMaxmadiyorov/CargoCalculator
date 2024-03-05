@@ -5,7 +5,7 @@ class CalculationsController < ApplicationController
 
   # GET /calculations or /calculations.json
   def index
-    @calculations = Calculation.all
+    @calculations = current_user.calculations
   end
 
   # GET /calculations/1 or /calculations/1.json
@@ -71,7 +71,7 @@ class CalculationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def calculation_params
-      params.require(:calculation).permit(:firstname, :lastname, :middlename, :phone_number, :email, :weight, :length, :width, :height, :dep_point, :dest_point)
+      params.require(:calculation).permit(:firstname, :lastname, :middlename, :phone_number, :email, :weight, :length, :width, :height, :dep_point, :dest_point, :user_id)
     end
 
     def set_price

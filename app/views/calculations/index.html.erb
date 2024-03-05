@@ -3,12 +3,24 @@
 <h1>Calculations</h1>
 
 <div id="calculations">
-  <% @calculations.each do |calculation| %>
-    <%= render calculation %>
-    <p>
-      <%= link_to "Show this calculation", calculation %>
-    </p>
-  <% end %>
+  <table>
+    <thead>
+      <th>ID</th>
+      <th>Department</th>
+      <th>Destination</th>
+      <th colspan="1"></th>
+    </thead>
+    <tbody>
+      <% @calculations.each do |calculation| %>
+        <tr>
+          <td><%= calculation.id %></td>
+          <td><%= calculation.dep_point %></td>
+          <td><%= calculation.dest_point %></td>
+          <td><%= link_to 'show', calculation_path(calculation) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <%= link_to "New calculation", new_calculation_path %>
