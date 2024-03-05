@@ -5,7 +5,8 @@ class CalculationsController < ApplicationController
 
   # GET /calculations or /calculations.json
   def index
-    @calculations = current_user.calculations
+    @q = current_user.calculations.ransack(params[:q])
+    @calculations = @q.result.order(id: :asc).page(params[:page]).per(2)
   end
 
   # GET /calculations/1 or /calculations/1.json
@@ -85,6 +86,6 @@ class CalculationsController < ApplicationController
       cargo_calculator.calculate_distance
       cargo_calculator.calculate_price
 
-      @calculation.update(price: cargo_calculator.price)
+      @calculation.update(price: cargo_calculator.price, distance: cargo_calculator.distance)
     end
 end

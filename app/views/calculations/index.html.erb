@@ -8,6 +8,9 @@
       <th>ID</th>
       <th>Department</th>
       <th>Destination</th>
+      <th><%= sort_link(@q, :distance, 'Distance') %></th>
+      <th><%= sort_link(@q, :price, 'Price') %></th>
+      <th><%= sort_link(@q, :created_at, 'created_at') %></th>
       <th colspan="1"></th>
     </thead>
     <tbody>
@@ -16,11 +19,14 @@
           <td><%= calculation.id %></td>
           <td><%= calculation.dep_point %></td>
           <td><%= calculation.dest_point %></td>
+          <td><%= calculation.distance %></td>
+          <td><%= calculation.price %></td>
+          <td><%= calculation.created_at %></td>
           <td><%= link_to 'show', calculation_path(calculation) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
-
+<%= paginate @calculations %>
 <%= link_to "New calculation", new_calculation_path %>

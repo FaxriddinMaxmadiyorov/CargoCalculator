@@ -356,11 +356,13 @@ DEPENDENCIES
   figaro
   importmap-rails
   jbuilder
+  kaminari
   pg (~> 1.1)
   pry
   puma (~> 5.0)
   pundit
   rails (~> 7.0.8, >= 7.0.8.1)
+  ransack
   redis (~> 4.0)
   rspec-rails
   sass-rails
