@@ -1,7 +1,7 @@
 require './calculations/cargo_calculator'
 
 class CalculationsController < ApplicationController
-  before_action :set_calculation, only: %i[ show edit update destroy ]
+  before_action :set_calculation, only: %i[ show edit update destroy set_price]
 
   # GET /calculations or /calculations.json
   def index
@@ -25,20 +25,9 @@ class CalculationsController < ApplicationController
   def create
     @calculation = Calculation.new(calculation_params)
 
-    # CargoCalculator object
-    cargo_calculator = Calculations::CargoCalculator.new
-    cargo_calculator.weight = @calculation.weight
-
-    cargo_calculator.length = @calculation.length
-    cargo_calculator.width = @calculation.width
-    cargo_calculator.height = @calculation.height
-    cargo_calculator.calculate_distance
-    cargo_calculator.calculate_price
-
-    @calculation.price = cargo_calculator.price
-
     respond_to do |format|
       if @calculation.save
+        set_price
         format.html { redirect_to calculation_url(@calculation), notice: "Calculation was successfully created." }
         format.json { render :show, status: :created, location: @calculation }
       else
@@ -80,5 +69,19 @@ class CalculationsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def calculation_params
       params.require(:calculation).permit(:firstname, :lastname, :middlename, :phone_number, :email, :weight, :length, :width, :height, :dep_point, :dest_point)
+    end
+
+    def set_price
+      # CargoCalculator object
+      cargo_calculator = Calculations::CargoCalculator.new
+      cargo_calculator.weight = @calculation.weight
+
+      cargo_calculator.length = @calculation.length
+      cargo_calculator.width = @calculation.width
+      cargo_calculator.height = @calculation.height
+      cargo_calculator.calculate_distance
+      cargo_calculator.calculate_price
+
+      @calculation.update(price: cargo_calculator.price)
     end
 end
